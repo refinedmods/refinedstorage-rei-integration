@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "id": "refinedstorage_rei_integration",
+  "version": "${version}",
+  "name": "Refined Storage - REI Integration",
+  "description": "REI integration for Refined Storage.",
+  "authors": [
+    "Refined Mods"
+  ],
+  "contact": {
+    "sources": "https://github.com/refinedmods/refinedstorage-rei-integration",
+    "issues": "https://github.com/refinedmods/refinedstorage-rei-integration/issues"
+  },
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "com.refinedmods.refinedstorage.rei.fabric.ClientModInitializerImpl"
+    ],
+    "rei_client": [
+      "com.refinedmods.refinedstorage.rei.fabric.ReiClientPlugin"
+    ]
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discordapp.com/invite/VYzsydb"
+      },
+      "parent": "refinedstorage2"
+    }
+  },
+  "depends": {
+    "fabricloader": ">=0.14.6",
+    "fabric-api": "*",
+    "minecraft": "~1.20.4",
+    "roughlyenoughitems": ">=14",
+    "java": ">=17"
+  }
+}
