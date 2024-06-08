@@ -1,0 +1,34 @@
+plugins {
+    id 'java-library'
+}
+
+archivesBaseName = 'refinedstorage-rei-integration-forge'
+
+forgeProject("refinedstorage_rei_integration", project(":refinedstorage-rei-integration-common"))
+
+repositories {
+    maven {
+        name = 'REI'
+        url 'https://maven.shedaniel.me/'
+    }
+    maven { url "https://maven.architectury.dev/" }
+    maven {
+        url = uri("https://maven.pkg.github.com/refinedmods/refinedstorage2")
+        credentials {
+            username = "anything"
+            password = "\u0067hp_oGjcDFCn8jeTzIj4Ke9pLoEVtpnZMP4VQgaX"
+        }
+    }
+}
+
+dependencies {
+    implementation("com.refinedmods.refinedstorage2:refinedstorage2-platform-forge:${refinedstorageVersion}") {
+        transitive = false
+    }
+    // https://linkie.shedaniel.dev/dependencies?loader=neoforge&version=1.20.4
+    api "dev.architectury:architectury-neoforge:${architecturyVersion}"
+    api "me.shedaniel.cloth:cloth-config-neoforge:${clothConfigVersion}"
+    api "me.shedaniel:RoughlyEnoughItems-neoforge:${reiVersion}"
+}
+
+enablePublishing()
