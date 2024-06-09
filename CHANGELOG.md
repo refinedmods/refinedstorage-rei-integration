@@ -7,6 +7,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.1.0] - 2024-06-09
+
 ### Added
 
 -   Support for REI exclusion zones.
@@ -15,3 +17,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 -   Recipe transfer integration for the Crafting Grid.
 -   Support for REI collapsable entries.
 -   Grid / REI search box synchronization options.
+
+[Unreleased]: https://github.com/refinedmods/refinedstorage-rei-integration/compare/v0.1.0...HEAD
+
+[0.1.0]: https://github.com/refinedmods/refinedstorage-rei-integration/compare/d7484c3f13c89276680daec3e4627cbb0cf2344e...v0.1.0
