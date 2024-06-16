@@ -11,7 +11,14 @@ repositories {
         name = 'REI'
         url 'https://maven.shedaniel.me/'
     }
-    maven { url "https://maven.architectury.dev/" }
+    maven {
+        name = 'Architectury'
+        url "https://maven.architectury.dev/"
+    }
+    maven {
+        name = 'Curios'
+        url = "https://maven.theillusivec4.top/"
+    }
     maven {
         url = uri("https://maven.pkg.github.com/refinedmods/refinedstorage2")
         credentials {
@@ -22,9 +29,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.refinedmods.refinedstorage2:refinedstorage2-platform-forge:${refinedstorageVersion}") {
-        transitive = false
-    }
+    api "com.refinedmods.refinedstorage2:refinedstorage2-platform-forge:${refinedstorageVersion}"
     // https://linkie.shedaniel.dev/dependencies?loader=neoforge&version=1.20.4
     api "dev.architectury:architectury-neoforge:${architecturyVersion}"
     api "me.shedaniel.cloth:cloth-config-neoforge:${clothConfigVersion}"

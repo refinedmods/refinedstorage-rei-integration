@@ -19,10 +19,6 @@ repositories {
         url 'https://maven.shedaniel.me/'
     }
     maven {
-        name = 'wthit'
-        url "https://maven.bai.lol"
-    }
-    maven {
         name = 'NoIndium'
         url = 'https://maven.cafeteria.dev/releases/'
     }
@@ -33,10 +29,7 @@ repositories {
 }
 
 dependencies {
-    modImplementation "com.refinedmods.refinedstorage2:refinedstorage2-platform-fabric:${refinedstorageVersion}"
-    implementation "com.refinedmods.refinedstorage2:refinedstorage2-platform-api:${refinedstorageVersion}"
-    implementation "com.refinedmods.refinedstorage2:refinedstorage2-resource-api:${refinedstorageVersion}"
-    implementation "com.refinedmods.refinedstorage2:refinedstorage2-grid-api:${refinedstorageVersion}"
+    modApi "com.refinedmods.refinedstorage2:refinedstorage2-platform-fabric:${refinedstorageVersion}"
     // https://linkie.shedaniel.dev/dependencies?loader=fabric&version=1.20.4
     modApi "dev.architectury:architectury-fabric:${architecturyVersion}"
     modApi "me.shedaniel.cloth:cloth-config-fabric:${clothConfigVersion}"
