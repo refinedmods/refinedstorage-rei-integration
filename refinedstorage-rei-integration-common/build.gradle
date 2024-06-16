@@ -1,22 +1,5 @@
 archivesBaseName = 'refinedstorage-rei-integration-common'
 
-repositories {
-    maven {
-        url = uri("https://maven.pkg.github.com/refinedmods/refinedstorage2")
-        credentials {
-            username = "anything"
-            password = "\u0067hp_oGjcDFCn8jeTzIj4Ke9pLoEVtpnZMP4VQgaX"
-        }
-    }
-}
-
 commonProject()
-
-dependencies {
-    implementation "com.refinedmods.refinedstorage2:refinedstorage2-platform-common:${refinedstorageVersion}"
-    implementation "com.refinedmods.refinedstorage2:refinedstorage2-platform-api:${refinedstorageVersion}"
-    implementation "com.refinedmods.refinedstorage2:refinedstorage2-resource-api:${refinedstorageVersion}"
-    implementation "com.refinedmods.refinedstorage2:refinedstorage2-grid-api:${refinedstorageVersion}"
-}
 
 enablePublishing()
