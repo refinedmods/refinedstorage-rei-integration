@@ -11,20 +11,16 @@ repositories {
         }
     }
     maven {
-        name = 'ModMenu'
-        url 'https://maven.terraformersmc.com/'
-    }
-    maven {
         name = 'Cloth Config, REI'
         url 'https://maven.shedaniel.me/'
     }
     maven {
-        name = 'NoIndium'
-        url = 'https://maven.cafeteria.dev/releases/'
+        name = 'ModMenu'
+        url 'https://maven.terraformersmc.com/'
     }
     maven {
-        name = "Trinkets"
-        url = 'https://maven.ladysnake.org/releases'
+        name = 'NoIndium'
+        url = 'https://maven.cafeteria.dev/releases/'
     }
 }
 

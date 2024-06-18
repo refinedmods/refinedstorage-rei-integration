@@ -8,23 +8,19 @@ forgeProject("refinedstorage_rei_integration", project(":refinedstorage-rei-inte
 
 repositories {
     maven {
+        url = uri("https://maven.pkg.github.com/refinedmods/refinedstorage2")
+        credentials {
+            username = "anything"
+            password = "\u0067hp_oGjcDFCn8jeTzIj4Ke9pLoEVtpnZMP4VQgaX"
+        }
+    }
+    maven {
         name = 'REI'
         url 'https://maven.shedaniel.me/'
     }
     maven {
         name = 'Architectury'
         url "https://maven.architectury.dev/"
-    }
-    maven {
-        name = 'Curios'
-        url = "https://maven.theillusivec4.top/"
-    }
-    maven {
-        url = uri("https://maven.pkg.github.com/refinedmods/refinedstorage2")
-        credentials {
-            username = "anything"
-            password = "\u0067hp_oGjcDFCn8jeTzIj4Ke9pLoEVtpnZMP4VQgaX"
-        }
     }
 }
 
