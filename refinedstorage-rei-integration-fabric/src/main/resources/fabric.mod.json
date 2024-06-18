@@ -14,8 +14,8 @@
   "license": "MIT",
   "environment": "*",
   "entrypoints": {
-    "client": [
-      "com.refinedmods.refinedstorage.rei.fabric.ClientModInitializerImpl"
+    "refinedstorage_plugin": [
+      "com.refinedmods.refinedstorage.rei.fabric.ReiRefinedStoragePlugin"
     ],
     "rei_client": [
       "com.refinedmods.refinedstorage.rei.fabric.ReiClientPlugin"
