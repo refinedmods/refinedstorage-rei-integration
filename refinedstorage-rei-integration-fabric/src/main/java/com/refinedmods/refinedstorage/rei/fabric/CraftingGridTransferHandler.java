@@ -2,6 +2,7 @@ package com.refinedmods.refinedstorage.rei.fabric;
 
 import java.awt.Color;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.refinedmods.refinedstorage2.api.resource.list.ResourceList;
@@ -83,7 +84,7 @@ class CraftingGridTransferHandler implements TransferHandler {
     private List<List<ItemResource>> getInputs(final List<EntryIngredient> ingredients) {
         return ingredients.stream()
             .map(this::convertIngredientToItemStacks)
-            .map(list -> list.stream().map(ItemResource::ofItemStack).toList())
+            .map(list -> list.stream().map(ItemResource::ofItemStack).collect(Collectors.toList()))
             .toList();
     }
 
