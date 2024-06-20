@@ -2,8 +2,6 @@ package com.refinedmods.refinedstorage.rei.forge;
 
 import java.util.function.Supplier;
 
-import com.refinedmods.refinedstorage2.platform.api.PlatformApi;
-import com.refinedmods.refinedstorage2.platform.api.support.resource.RecipeModIngredientConverter;
 import com.refinedmods.refinedstorage2.platform.common.content.BlockColorMap;
 import com.refinedmods.refinedstorage2.platform.common.content.Blocks;
 import com.refinedmods.refinedstorage2.platform.common.content.ContentIds;
@@ -31,10 +29,9 @@ import static com.refinedmods.refinedstorage.rei.common.Common.FULLY_CHARGED_CON
 public class ReiClientPlugin implements REIClientPlugin {
     @Override
     public void registerScreens(final ScreenRegistry registry) {
-        final RecipeModIngredientConverter converter = PlatformApi.INSTANCE.getIngredientConverter();
-        registry.registerFocusedStack(new GridFocusedStackProvider(converter));
-        registry.registerFocusedStack(new ResourceFocusedStackProvider(converter));
-        registry.registerDraggableStackVisitor(new DraggableStackVisitorImpl(converter));
+        registry.registerFocusedStack(new GridFocusedStackProvider());
+        registry.registerFocusedStack(new ResourceFocusedStackProvider());
+        registry.registerDraggableStackVisitor(new DraggableStackVisitorImpl());
     }
 
     @Override
