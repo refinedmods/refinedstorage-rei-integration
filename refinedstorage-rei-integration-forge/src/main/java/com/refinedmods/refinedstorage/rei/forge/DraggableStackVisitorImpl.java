@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+import com.refinedmods.refinedstorage2.platform.api.PlatformApi;
 import com.refinedmods.refinedstorage2.platform.api.support.resource.PlatformResourceKey;
-import com.refinedmods.refinedstorage2.platform.api.support.resource.RecipeModIngredientConverter;
 import com.refinedmods.refinedstorage2.platform.common.Platform;
 import com.refinedmods.refinedstorage2.platform.common.support.AbstractBaseScreen;
 import com.refinedmods.refinedstorage2.platform.common.support.containermenu.AbstractResourceContainerMenu;
@@ -19,12 +19,6 @@ import net.minecraft.client.gui.screens.Screen;
 
 class DraggableStackVisitorImpl
     implements DraggableStackVisitor<AbstractBaseScreen<? extends AbstractResourceContainerMenu>> {
-    private final RecipeModIngredientConverter ingredientConverter;
-
-    DraggableStackVisitorImpl(final RecipeModIngredientConverter ingredientConverter) {
-        this.ingredientConverter = ingredientConverter;
-    }
-
     @Override
     public Stream<BoundsProvider> getDraggableAcceptingBounds(
         final DraggingContext<AbstractBaseScreen<? extends AbstractResourceContainerMenu>> context,
@@ -34,7 +28,7 @@ class DraggableStackVisitorImpl
         final var menu = screen.getMenu();
         final var value = stack.getStack().getValue();
         final List<BoundsProvider> bounds = new ArrayList<>();
-        ingredientConverter.convertToResource(value).ifPresent(resource -> {
+        PlatformApi.INSTANCE.getIngredientConverter().convertToResource(value).ifPresent(resource -> {
             for (final ResourceSlot slot : menu.getResourceSlots()) {
                 if (slot.isFilter() && slot.isValid(resource)) {
                     bounds.add(BoundsProvider.ofRectangle(toRectangle(screen, slot)));
@@ -52,7 +46,7 @@ class DraggableStackVisitorImpl
         final var screen = context.getScreen();
         final var menu = screen.getMenu();
         final Object value = stack.getStack().getValue();
-        return ingredientConverter.convertToResource(value)
+        return PlatformApi.INSTANCE.getIngredientConverter().convertToResource(value)
             .map(resource -> accept(context, menu, screen, resource))
             .orElse(DraggedAcceptorResult.PASS);
     }
