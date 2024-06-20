@@ -7,6 +7,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Fixed
+
+-   Recipe transfer not working.
+
 ## [0.1.2] - 2024-06-20
 
 ### Fixed
