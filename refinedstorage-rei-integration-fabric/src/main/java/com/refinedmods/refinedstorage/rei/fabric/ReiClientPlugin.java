@@ -2,8 +2,6 @@ package com.refinedmods.refinedstorage.rei.fabric;
 
 import java.util.function.Supplier;
 
-import com.refinedmods.refinedstorage2.platform.api.PlatformApi;
-import com.refinedmods.refinedstorage2.platform.api.support.resource.RecipeModIngredientConverter;
 import com.refinedmods.refinedstorage2.platform.common.content.BlockColorMap;
 import com.refinedmods.refinedstorage2.platform.common.content.Blocks;
 import com.refinedmods.refinedstorage2.platform.common.content.ContentIds;
