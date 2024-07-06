@@ -6,18 +6,18 @@ license = "MIT"
 modId = "refinedstorage_rei_integration"
 version = "${version}"
 displayName = "Refined Storage - REI Integration"
-displayURL = "https://github.com/refinedmods/refinedstorage-rei-integration"
+displayURL = "https://refinedmods.com/refined-storage"
 authors = "Refined Mods"
 description = '''
 REI integration for Refined Storage.
 '''
 [[dependencies.refinedstorage_rei_integration]]
-modId = "refinedstorage2"
+modId = "refinedstorage"
 type = "required"
-versionRange = "2.0.0-milestone.3.6"
+versionRange = "2.0.0-milestone.4.2"
 side = "BOTH"
 [[dependencies.refinedstorage_rei_integration]]
 modId = "roughlyenoughitems"
 type = "required"
-versionRange = "[14,)"
+versionRange = "[16,)"
 side = "BOTH"

@@ -1,13 +1,14 @@
 package com.refinedmods.refinedstorage.rei.forge;
 
+import com.refinedmods.refinedstorage.api.resource.list.ResourceList;
+import com.refinedmods.refinedstorage.platform.common.grid.CraftingGridContainerMenu;
+import com.refinedmods.refinedstorage.platform.common.support.resource.ItemResource;
+
 import java.awt.Color;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.refinedmods.refinedstorage2.api.resource.list.ResourceList;
-import com.refinedmods.refinedstorage2.platform.common.grid.CraftingGridContainerMenu;
-import com.refinedmods.refinedstorage2.platform.common.support.resource.ItemResource;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.widgets.Slot;
 import me.shedaniel.rei.api.client.gui.widgets.Widget;

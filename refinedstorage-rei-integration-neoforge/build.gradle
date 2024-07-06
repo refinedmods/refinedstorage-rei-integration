@@ -2,9 +2,9 @@ plugins {
     id 'java-library'
 }
 
-archivesBaseName = 'refinedstorage-rei-integration-forge'
+archivesBaseName = 'refinedstorage-rei-integration-neoforge'
 
-forgeProject("refinedstorage_rei_integration", project(":refinedstorage-rei-integration-common"))
+neoForgeProject("refinedstorage_rei_integration", project(":refinedstorage-rei-integration-common"))
 
 repositories {
     maven {
@@ -25,8 +25,8 @@ repositories {
 }
 
 dependencies {
-    api "com.refinedmods.refinedstorage2:refinedstorage2-platform-forge:${refinedstorageVersion}"
-    // https://linkie.shedaniel.dev/dependencies?loader=neoforge&version=1.20.4
+    api "com.refinedmods.refinedstorage:refinedstorage-platform-neoforge:${refinedstorageVersion}"
+    // https://linkie.shedaniel.dev/dependencies?loader=neoforge&version=1.21
     api "dev.architectury:architectury-neoforge:${architecturyVersion}"
     api "me.shedaniel.cloth:cloth-config-neoforge:${clothConfigVersion}"
     api "me.shedaniel:RoughlyEnoughItems-neoforge:${reiVersion}"

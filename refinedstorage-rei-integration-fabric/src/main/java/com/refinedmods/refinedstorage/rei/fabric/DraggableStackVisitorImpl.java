@@ -1,15 +1,16 @@
 package com.refinedmods.refinedstorage.rei.fabric;
 
+import com.refinedmods.refinedstorage.platform.api.PlatformApi;
+import com.refinedmods.refinedstorage.platform.api.support.resource.PlatformResourceKey;
+import com.refinedmods.refinedstorage.platform.common.support.AbstractBaseScreen;
+import com.refinedmods.refinedstorage.platform.common.support.containermenu.AbstractResourceContainerMenu;
+import com.refinedmods.refinedstorage.platform.common.support.containermenu.ResourceSlot;
+import com.refinedmods.refinedstorage.platform.common.support.packet.c2s.C2SPackets;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import com.refinedmods.refinedstorage2.platform.api.PlatformApi;
-import com.refinedmods.refinedstorage2.platform.api.support.resource.PlatformResourceKey;
-import com.refinedmods.refinedstorage2.platform.common.Platform;
-import com.refinedmods.refinedstorage2.platform.common.support.AbstractBaseScreen;
-import com.refinedmods.refinedstorage2.platform.common.support.containermenu.AbstractResourceContainerMenu;
-import com.refinedmods.refinedstorage2.platform.common.support.containermenu.ResourceSlot;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.drag.DraggableStack;
 import me.shedaniel.rei.api.client.gui.drag.DraggableStackVisitor;
@@ -62,7 +63,7 @@ class DraggableStackVisitorImpl
             if (!slotBounds.contains(context.getCurrentPosition())) {
                 continue;
             }
-            Platform.INSTANCE.getClientToServerCommunications().sendResourceFilterSlotChange(resource, slot.index);
+            C2SPackets.sendResourceFilterSlotChange(resource, slot.index);
             return DraggedAcceptorResult.ACCEPTED;
         }
         return DraggedAcceptorResult.PASS;
