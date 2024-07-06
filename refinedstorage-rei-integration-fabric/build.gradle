@@ -25,8 +25,8 @@ repositories {
 }
 
 dependencies {
-    modApi "com.refinedmods.refinedstorage2:refinedstorage2-platform-fabric:${refinedstorageVersion}"
-    // https://linkie.shedaniel.dev/dependencies?loader=fabric&version=1.20.4
+    modApi "com.refinedmods.refinedstorage:refinedstorage-platform-fabric:${refinedstorageVersion}"
+    // https://linkie.shedaniel.dev/dependencies?loader=fabric&version=1.21
     modApi "dev.architectury:architectury-fabric:${architecturyVersion}"
     modApi "me.shedaniel.cloth:cloth-config-fabric:${clothConfigVersion}"
     modApi "me.shedaniel:RoughlyEnoughItems-fabric:${reiVersion}"

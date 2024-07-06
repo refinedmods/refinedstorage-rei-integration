@@ -1,8 +1,8 @@
 package com.refinedmods.refinedstorage.rei.forge;
 
+import com.refinedmods.refinedstorage.platform.api.PlatformApi;
 import com.refinedmods.refinedstorage.rei.common.Common;
 
-import com.refinedmods.refinedstorage2.platform.api.PlatformApi;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;

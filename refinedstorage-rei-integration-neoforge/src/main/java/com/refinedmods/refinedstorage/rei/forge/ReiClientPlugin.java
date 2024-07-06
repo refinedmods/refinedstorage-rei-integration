@@ -1,12 +1,13 @@
 package com.refinedmods.refinedstorage.rei.forge;
 
+import com.refinedmods.refinedstorage.platform.common.content.ContentIds;
+import com.refinedmods.refinedstorage.platform.common.content.Items;
+import com.refinedmods.refinedstorage.platform.common.content.Tags;
+import com.refinedmods.refinedstorage.platform.common.controller.ControllerBlockItem;
+import com.refinedmods.refinedstorage.platform.common.support.AbstractBaseScreen;
+
 import java.util.function.Supplier;
 
-import com.refinedmods.refinedstorage2.platform.common.content.ContentIds;
-import com.refinedmods.refinedstorage2.platform.common.content.Items;
-import com.refinedmods.refinedstorage2.platform.common.content.Tags;
-import com.refinedmods.refinedstorage2.platform.common.controller.ControllerBlockItem;
-import com.refinedmods.refinedstorage2.platform.common.support.AbstractBaseScreen;
 import me.shedaniel.rei.api.client.plugins.REIClientPlugin;
 import me.shedaniel.rei.api.client.registry.entry.CollapsibleEntryRegistry;
 import me.shedaniel.rei.api.client.registry.screen.ExclusionZones;
@@ -21,9 +22,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 
+import static com.refinedmods.refinedstorage.platform.common.util.IdentifierUtil.createTranslation;
 import static com.refinedmods.refinedstorage.rei.common.Common.FULLY_CHARGED_CONTROLLER_GROUP_ID;
 import static com.refinedmods.refinedstorage.rei.common.Common.FULLY_CHARGED_CONTROLLER_GROUP_NAME;
-import static com.refinedmods.refinedstorage2.platform.common.util.IdentifierUtil.createTranslation;
 
 @REIPluginClient
 public class ReiClientPlugin implements REIClientPlugin {
@@ -41,7 +42,7 @@ public class ReiClientPlugin implements REIClientPlugin {
 
     @Override
     public void registerItemComparators(final ItemComparatorRegistry registry) {
-        Items.INSTANCE.getControllers().stream().map(Supplier::get).forEach(registry::registerNbt);
+        Items.INSTANCE.getControllers().stream().map(Supplier::get).forEach(registry::registerComponents);
     }
 
     private Component tagName(final String name) {

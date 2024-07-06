@@ -7,7 +7,10 @@ import net.minecraft.resources.ResourceLocation;
 public final class Common {
     public static final String MOD_ID = "refinedstorage_rei_integration";
 
-    public static final ResourceLocation SYNCHRONIZER_ID = new ResourceLocation(MOD_ID, "rei");
+    public static final ResourceLocation SYNCHRONIZER_ID = ResourceLocation.fromNamespaceAndPath(
+        MOD_ID,
+        "rei"
+    );
     public static final MutableComponent SYNCHRONIZER_TITLE = Component.translatable(
         "gui.%s.grid.synchronizer".formatted(MOD_ID)
     );
@@ -15,7 +18,10 @@ public final class Common {
         "gui.%s.grid.synchronizer.help".formatted(MOD_ID)
     );
 
-    public static final ResourceLocation TWO_WAY_SYNCHRONIZER_ID = new ResourceLocation(MOD_ID, "rei_two_way");
+    public static final ResourceLocation TWO_WAY_SYNCHRONIZER_ID = ResourceLocation.fromNamespaceAndPath(
+        MOD_ID,
+        "rei_two_way"
+    );
     public static final MutableComponent TWO_WAY_SYNCHRONIZER_TITLE = Component.translatable(
         "gui.%s.grid.synchronizer.two_way".formatted(MOD_ID)
     );
@@ -23,7 +29,7 @@ public final class Common {
         "gui.%s.grid.synchronizer.two_way.help".formatted(MOD_ID)
     );
 
-    public static final ResourceLocation FULLY_CHARGED_CONTROLLER_GROUP_ID = new ResourceLocation(
+    public static final ResourceLocation FULLY_CHARGED_CONTROLLER_GROUP_ID = ResourceLocation.fromNamespaceAndPath(
         MOD_ID,
         "fully_charged_controller"
     );
