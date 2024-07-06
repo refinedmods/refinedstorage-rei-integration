@@ -1,9 +1,10 @@
 package com.refinedmods.refinedstorage.rei.forge;
 
+import com.refinedmods.refinedstorage.platform.common.support.AbstractBaseScreen;
+
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-import com.refinedmods.refinedstorage2.platform.common.support.AbstractBaseScreen;
 import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.registry.screen.ExclusionZonesProvider;
 
