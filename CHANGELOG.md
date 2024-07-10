@@ -7,6 +7,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.2.1] - 2024-07-10
+
 ## [0.2.0] - 2024-07-06
 
 ### Fixed
@@ -48,7 +50,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 -   Support for REI collapsable entries.
 -   Grid / REI search box synchronization options.
 
-[Unreleased]: https://github.com/refinedmods/refinedstorage-rei-integration/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/refinedmods/refinedstorage-rei-integration/compare/v0.2.1...HEAD
+
+[0.2.1]: https://github.com/refinedmods/refinedstorage-rei-integration/compare/v0.2.0...v0.2.1
 
 [0.2.0]: https://github.com/refinedmods/refinedstorage-rei-integration/compare/v0.1.4...v0.2.0
 

@@ -1,5 +1,0 @@
-archivesBaseName = 'refinedstorage-rei-integration-common'
-
-commonProject()
-
-enablePublishing()
