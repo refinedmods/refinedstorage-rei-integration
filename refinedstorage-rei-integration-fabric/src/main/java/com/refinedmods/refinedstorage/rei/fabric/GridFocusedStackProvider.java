@@ -1,6 +1,7 @@
 package com.refinedmods.refinedstorage.rei.fabric;
 
 import com.refinedmods.refinedstorage.platform.api.PlatformApi;
+import com.refinedmods.refinedstorage.platform.api.grid.view.PlatformGridResource;
 import com.refinedmods.refinedstorage.platform.api.support.resource.PlatformResourceKey;
 import com.refinedmods.refinedstorage.platform.common.grid.screen.AbstractGridScreen;
 
@@ -16,10 +17,18 @@ class GridFocusedStackProvider implements FocusedStackProvider {
         if (!(screen instanceof AbstractGridScreen<?> gridScreen)) {
             return CompoundEventResult.pass();
         }
-        final PlatformResourceKey resource = gridScreen.getCurrentResource();
+        final PlatformGridResource resource = gridScreen.getCurrentGridResource();
         if (resource == null) {
             return CompoundEventResult.pass();
         }
+        final PlatformResourceKey underlyingResource = resource.getUnderlyingResource();
+        if (underlyingResource == null) {
+            return CompoundEventResult.pass();
+        }
+        return provide(underlyingResource);
+    }
+
+    private CompoundEventResult<EntryStack<?>> provide(final PlatformResourceKey resource) {
         final Object converted = PlatformApi.INSTANCE.getIngredientConverter()
             .convertToIngredient(resource)
             .orElse(null);
