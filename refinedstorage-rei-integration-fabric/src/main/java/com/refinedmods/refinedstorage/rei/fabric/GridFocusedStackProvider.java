@@ -1,8 +1,9 @@
 package com.refinedmods.refinedstorage.rei.fabric;
 
-import com.refinedmods.refinedstorage.platform.api.PlatformApi;
-import com.refinedmods.refinedstorage.platform.api.support.resource.PlatformResourceKey;
-import com.refinedmods.refinedstorage.platform.common.grid.screen.AbstractGridScreen;
+import com.refinedmods.refinedstorage.common.api.RefinedStorageApi;
+import com.refinedmods.refinedstorage.common.api.grid.view.PlatformGridResource;
+import com.refinedmods.refinedstorage.common.api.support.resource.PlatformResourceKey;
+import com.refinedmods.refinedstorage.common.grid.screen.AbstractGridScreen;
 
 import dev.architectury.event.CompoundEventResult;
 import me.shedaniel.math.Point;
@@ -16,11 +17,19 @@ class GridFocusedStackProvider implements FocusedStackProvider {
         if (!(screen instanceof AbstractGridScreen<?> gridScreen)) {
             return CompoundEventResult.pass();
         }
-        final PlatformResourceKey resource = gridScreen.getCurrentResource();
+        final PlatformGridResource resource = gridScreen.getCurrentGridResource();
         if (resource == null) {
             return CompoundEventResult.pass();
         }
-        final Object converted = PlatformApi.INSTANCE.getIngredientConverter()
+        final PlatformResourceKey underlyingResource = resource.getUnderlyingResource();
+        if (underlyingResource == null) {
+            return CompoundEventResult.pass();
+        }
+        return provide(underlyingResource);
+    }
+
+    private CompoundEventResult<EntryStack<?>> provide(final PlatformResourceKey resource) {
+        final Object converted = RefinedStorageApi.INSTANCE.getIngredientConverter()
             .convertToIngredient(resource)
             .orElse(null);
         if (converted instanceof EntryStack<?> stack) {

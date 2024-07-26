@@ -39,7 +39,7 @@ val clothConfigVersion: String by project
 val reiVersion: String by project
 
 dependencies {
-    api("com.refinedmods.refinedstorage:refinedstorage-platform-neoforge:${refinedstorageVersion}")
+    api("com.refinedmods.refinedstorage:refinedstorage-neoforge:${refinedstorageVersion}")
     api("dev.architectury:architectury-neoforge:${architecturyVersion}")
     api("me.shedaniel.cloth:cloth-config-neoforge:${clothConfigVersion}")
     api("me.shedaniel:RoughlyEnoughItems-neoforge:${reiVersion}")

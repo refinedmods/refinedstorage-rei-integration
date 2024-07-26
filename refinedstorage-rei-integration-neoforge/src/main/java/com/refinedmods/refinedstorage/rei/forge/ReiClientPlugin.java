@@ -1,10 +1,10 @@
 package com.refinedmods.refinedstorage.rei.forge;
 
-import com.refinedmods.refinedstorage.platform.common.content.ContentIds;
-import com.refinedmods.refinedstorage.platform.common.content.Items;
-import com.refinedmods.refinedstorage.platform.common.content.Tags;
-import com.refinedmods.refinedstorage.platform.common.controller.ControllerBlockItem;
-import com.refinedmods.refinedstorage.platform.common.support.AbstractBaseScreen;
+import com.refinedmods.refinedstorage.common.content.ContentIds;
+import com.refinedmods.refinedstorage.common.content.Items;
+import com.refinedmods.refinedstorage.common.content.Tags;
+import com.refinedmods.refinedstorage.common.controller.ControllerBlockItem;
+import com.refinedmods.refinedstorage.common.support.AbstractBaseScreen;
 
 import java.util.function.Supplier;
 
@@ -22,7 +22,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 
-import static com.refinedmods.refinedstorage.platform.common.util.IdentifierUtil.createTranslation;
+import static com.refinedmods.refinedstorage.common.util.IdentifierUtil.createTranslation;
 import static com.refinedmods.refinedstorage.rei.common.Common.FULLY_CHARGED_CONTROLLER_GROUP_ID;
 import static com.refinedmods.refinedstorage.rei.common.Common.FULLY_CHARGED_CONTROLLER_GROUP_NAME;
 

@@ -12,4 +12,3 @@ refinedarchitect {
 base {
     archivesName.set("refinedstorage-rei-integration-common")
 }
-
