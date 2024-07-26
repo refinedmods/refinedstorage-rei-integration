@@ -1,8 +1,8 @@
 package com.refinedmods.refinedstorage.rei.fabric;
 
-import com.refinedmods.refinedstorage.platform.api.PlatformApi;
-import com.refinedmods.refinedstorage.platform.api.support.resource.PlatformResourceKey;
-import com.refinedmods.refinedstorage.platform.common.support.AbstractBaseScreen;
+import com.refinedmods.refinedstorage.common.api.RefinedStorageApi;
+import com.refinedmods.refinedstorage.common.api.support.resource.PlatformResourceKey;
+import com.refinedmods.refinedstorage.common.support.AbstractBaseScreen;
 
 import dev.architectury.event.CompoundEventResult;
 import me.shedaniel.math.Point;
@@ -20,7 +20,7 @@ class ResourceFocusedStackProvider implements FocusedStackProvider {
         if (hoveredResource == null) {
             return CompoundEventResult.pass();
         }
-        final Object converted = PlatformApi.INSTANCE.getIngredientConverter()
+        final Object converted = RefinedStorageApi.INSTANCE.getIngredientConverter()
             .convertToIngredient(hoveredResource)
             .orElse(null);
         if (converted instanceof EntryStack<?> stack) {

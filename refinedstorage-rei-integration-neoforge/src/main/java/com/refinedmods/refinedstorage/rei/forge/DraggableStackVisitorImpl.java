@@ -1,11 +1,11 @@
 package com.refinedmods.refinedstorage.rei.forge;
 
-import com.refinedmods.refinedstorage.platform.api.PlatformApi;
-import com.refinedmods.refinedstorage.platform.api.support.resource.PlatformResourceKey;
-import com.refinedmods.refinedstorage.platform.common.support.AbstractBaseScreen;
-import com.refinedmods.refinedstorage.platform.common.support.containermenu.AbstractResourceContainerMenu;
-import com.refinedmods.refinedstorage.platform.common.support.containermenu.ResourceSlot;
-import com.refinedmods.refinedstorage.platform.common.support.packet.c2s.C2SPackets;
+import com.refinedmods.refinedstorage.common.api.RefinedStorageApi;
+import com.refinedmods.refinedstorage.common.api.support.resource.PlatformResourceKey;
+import com.refinedmods.refinedstorage.common.support.AbstractBaseScreen;
+import com.refinedmods.refinedstorage.common.support.containermenu.AbstractResourceContainerMenu;
+import com.refinedmods.refinedstorage.common.support.containermenu.ResourceSlot;
+import com.refinedmods.refinedstorage.common.support.packet.c2s.C2SPackets;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,7 @@ class DraggableStackVisitorImpl
         final var menu = screen.getMenu();
         final var value = stack.getStack().getValue();
         final List<BoundsProvider> bounds = new ArrayList<>();
-        PlatformApi.INSTANCE.getIngredientConverter().convertToResource(value).ifPresent(resource -> {
+        RefinedStorageApi.INSTANCE.getIngredientConverter().convertToResource(value).ifPresent(resource -> {
             for (final ResourceSlot slot : menu.getResourceSlots()) {
                 if (slot.isFilter() && slot.isValid(resource)) {
                     bounds.add(BoundsProvider.ofRectangle(toRectangle(screen, slot)));
@@ -47,7 +47,7 @@ class DraggableStackVisitorImpl
         final var screen = context.getScreen();
         final var menu = screen.getMenu();
         final Object value = stack.getStack().getValue();
-        return PlatformApi.INSTANCE.getIngredientConverter().convertToResource(value)
+        return RefinedStorageApi.INSTANCE.getIngredientConverter().convertToResource(value)
             .map(resource -> accept(context, menu, screen, resource))
             .orElse(DraggedAcceptorResult.PASS);
     }

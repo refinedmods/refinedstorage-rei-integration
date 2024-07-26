@@ -1,8 +1,8 @@
 package com.refinedmods.refinedstorage.rei.forge;
 
 import com.refinedmods.refinedstorage.api.resource.list.ResourceList;
-import com.refinedmods.refinedstorage.platform.common.grid.CraftingGridContainerMenu;
-import com.refinedmods.refinedstorage.platform.common.support.resource.ItemResource;
+import com.refinedmods.refinedstorage.common.grid.CraftingGridContainerMenu;
+import com.refinedmods.refinedstorage.common.support.resource.ItemResource;
 
 import java.awt.Color;
 import java.util.List;

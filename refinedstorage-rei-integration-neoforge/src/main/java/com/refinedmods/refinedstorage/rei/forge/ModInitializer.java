@@ -1,6 +1,6 @@
 package com.refinedmods.refinedstorage.rei.forge;
 
-import com.refinedmods.refinedstorage.platform.api.PlatformApi;
+import com.refinedmods.refinedstorage.common.api.RefinedStorageApi;
 import com.refinedmods.refinedstorage.rei.common.Common;
 
 import net.neoforged.api.distmarker.Dist;
@@ -23,9 +23,12 @@ public class ModInitializer {
 
     @SubscribeEvent
     public static void onClientSetup(final FMLClientSetupEvent e) {
-        PlatformApi.INSTANCE.addIngredientConverter(new ReiRecipeModIngredientConverter());
-        PlatformApi.INSTANCE.getGridSynchronizerRegistry().register(SYNCHRONIZER_ID, new ReiGridSynchronizer(false));
-        PlatformApi.INSTANCE.getGridSynchronizerRegistry().register(
+        RefinedStorageApi.INSTANCE.addIngredientConverter(new ReiRecipeModIngredientConverter());
+        RefinedStorageApi.INSTANCE.getGridSynchronizerRegistry().register(
+            SYNCHRONIZER_ID,
+            new ReiGridSynchronizer(false)
+        );
+        RefinedStorageApi.INSTANCE.getGridSynchronizerRegistry().register(
             TWO_WAY_SYNCHRONIZER_ID,
             new ReiGridSynchronizer(true)
         );

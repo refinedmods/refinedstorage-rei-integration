@@ -39,7 +39,7 @@ val clothConfigVersion: String by project
 val reiVersion: String by project
 
 dependencies {
-    modApi("com.refinedmods.refinedstorage:refinedstorage-platform-fabric:${refinedstorageVersion}")
+    modApi("com.refinedmods.refinedstorage:refinedstorage-fabric:${refinedstorageVersion}")
     modApi("dev.architectury:architectury-fabric:${architecturyVersion}")
     modApi("me.shedaniel.cloth:cloth-config-fabric:${clothConfigVersion}")
     modApi("me.shedaniel:RoughlyEnoughItems-fabric:${reiVersion}")
