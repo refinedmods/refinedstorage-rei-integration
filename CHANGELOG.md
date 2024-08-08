@@ -7,6 +7,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.3.0] - 2024-08-08
+
 ### Added
 
 -   Grouping support for the Pattern Grid.
@@ -61,7 +63,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 -   Support for REI collapsable entries.
 -   Grid / REI search box synchronization options.
 
-[Unreleased]: https://github.com/refinedmods/refinedstorage-rei-integration/compare/v0.2.2...HEAD
+[Unreleased]: https://github.com/refinedmods/refinedstorage-rei-integration/compare/v0.3.0...HEAD
+
+[0.3.0]: https://github.com/refinedmods/refinedstorage-rei-integration/compare/v0.2.2...v0.3.0
 
 [0.2.2]: https://github.com/refinedmods/refinedstorage-rei-integration/compare/v0.2.1...v0.2.2
 
