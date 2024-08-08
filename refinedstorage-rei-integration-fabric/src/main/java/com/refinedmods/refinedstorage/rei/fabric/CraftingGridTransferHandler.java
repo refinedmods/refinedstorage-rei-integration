@@ -14,23 +14,22 @@ import me.shedaniel.rei.api.client.gui.widgets.Slot;
 import me.shedaniel.rei.api.client.gui.widgets.Widget;
 import me.shedaniel.rei.api.client.registry.transfer.TransferHandler;
 import me.shedaniel.rei.api.client.registry.transfer.TransferHandlerRenderer;
-import me.shedaniel.rei.api.common.category.CategoryIdentifier;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.entry.EntryStack;
 import me.shedaniel.rei.api.common.entry.type.VanillaEntryTypes;
 import me.shedaniel.rei.api.common.util.CollectionUtils;
+import me.shedaniel.rei.plugin.common.BuiltinPlugin;
 import me.shedaniel.rei.plugin.common.displays.crafting.DefaultCraftingDisplay;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.item.ItemStack;
 
 class CraftingGridTransferHandler implements TransferHandler {
     private static final Color MISSING_COLOR = new Color(1.0f, 0.0f, 0.0f, 0.4f);
-    private static final CategoryIdentifier<?> CRAFTING = CategoryIdentifier.of("minecraft", "plugins/crafting");
 
     @Override
     public Result handle(final Context context) {
         if (!(context.getMenu() instanceof CraftingGridContainerMenu containerMenu)
-            || !context.getDisplay().getCategoryIdentifier().equals(CRAFTING)
+            || !context.getDisplay().getCategoryIdentifier().equals(BuiltinPlugin.CRAFTING)
             || !(context.getDisplay() instanceof DefaultCraftingDisplay<?> defaultCraftingDisplay)) {
             return Result.createNotApplicable();
         }

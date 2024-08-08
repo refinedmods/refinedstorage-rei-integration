@@ -33,12 +33,14 @@ public class ReiClientPlugin implements REIClientPlugin {
     public void registerScreens(final ScreenRegistry registry) {
         registry.registerFocusedStack(new GridFocusedStackProvider());
         registry.registerFocusedStack(new ResourceFocusedStackProvider());
-        registry.registerDraggableStackVisitor(new DraggableStackVisitorImpl());
+        registry.registerDraggableStackVisitor(new ResourceDraggableStackVisitor());
+        registry.registerDraggableStackVisitor(new FilterDraggableStackVisitor());
     }
 
     @Override
     public void registerTransferHandlers(final TransferHandlerRegistry registry) {
         registry.register(new CraftingGridTransferHandler());
+        registry.register(new PatternGridTransferHandler());
     }
 
     @Override
@@ -55,6 +57,7 @@ public class ReiClientPlugin implements REIClientPlugin {
     public void registerCollapsibleEntries(final CollapsibleEntryRegistry registry) {
         groupItems(registry, tagName("cables"), ContentIds.CABLE, Tags.CABLES);
         groupItems(registry, tagName("grids"), ContentIds.GRID, Tags.GRIDS);
+        groupItems(registry, tagName("pattern_grids"), ContentIds.PATTERN_GRID, Tags.PATTERN_GRIDS);
         groupItems(registry, tagName("crafting_grids"), ContentIds.CRAFTING_GRID, Tags.CRAFTING_GRIDS);
         groupItems(registry, tagName("importers"), ContentIds.IMPORTER, Tags.IMPORTERS);
         groupItems(registry, tagName("exporters"), ContentIds.EXPORTER, Tags.EXPORTERS);

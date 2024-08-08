@@ -21,7 +21,7 @@ class GridFocusedStackProvider implements FocusedStackProvider {
         if (resource == null) {
             return CompoundEventResult.pass();
         }
-        final PlatformResourceKey underlyingResource = resource.getUnderlyingResource();
+        final PlatformResourceKey underlyingResource = resource.getResourceForRecipeMods();
         if (underlyingResource == null) {
             return CompoundEventResult.pass();
         }

@@ -1,5 +1,6 @@
 package com.refinedmods.refinedstorage.rei.fabric;
 
+import com.refinedmods.refinedstorage.api.resource.ResourceAmount;
 import com.refinedmods.refinedstorage.common.api.support.resource.PlatformResourceKey;
 import com.refinedmods.refinedstorage.common.api.support.resource.RecipeModIngredientConverter;
 import com.refinedmods.refinedstorage.common.support.resource.FluidResource;
@@ -19,6 +20,23 @@ class ReiRecipeModIngredientConverter implements RecipeModIngredientConverter {
         }
         if (ingredient instanceof ItemStack itemStack) {
             return Optional.of(ItemResource.ofItemStack(itemStack));
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<ResourceAmount> convertToResourceAmount(final Object ingredient) {
+        if (ingredient instanceof FluidStack fluidStack) {
+            return Optional.of(new ResourceAmount(
+                new FluidResource(fluidStack.getFluid(), fluidStack.getPatch()),
+                fluidStack.getAmount()
+            ));
+        }
+        if (ingredient instanceof ItemStack itemStack) {
+            return Optional.of(new ResourceAmount(
+                ItemResource.ofItemStack(itemStack),
+                itemStack.getCount()
+            ));
         }
         return Optional.empty();
     }

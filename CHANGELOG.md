@@ -7,6 +7,11 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+
+-   Grouping support for the Pattern Grid.
+-   Recipe transfer support for the Pattern Grid.
+
 ## [0.2.2] - 2024-07-26
 
 ### Fixed
