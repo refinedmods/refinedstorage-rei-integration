@@ -1,18 +1,20 @@
 package com.refinedmods.refinedstorage.rei.fabric;
 
-import com.refinedmods.refinedstorage.common.grid.AbstractGridSynchronizer;
+import com.refinedmods.refinedstorage.common.api.grid.GridSynchronizer;
+import com.refinedmods.refinedstorage.common.grid.NoopGridSynchronizer;
 
 import javax.annotation.Nullable;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceLocation;
 
 import static com.refinedmods.refinedstorage.rei.common.Common.SYNCHRONIZER_HELP;
 import static com.refinedmods.refinedstorage.rei.common.Common.SYNCHRONIZER_TITLE;
 import static com.refinedmods.refinedstorage.rei.common.Common.TWO_WAY_SYNCHRONIZER_HELP;
 import static com.refinedmods.refinedstorage.rei.common.Common.TWO_WAY_SYNCHRONIZER_TITLE;
 
-public class ReiGridSynchronizer extends AbstractGridSynchronizer {
+public class ReiGridSynchronizer implements GridSynchronizer {
     private final boolean twoWay;
 
     public ReiGridSynchronizer(final boolean twoWay) {
@@ -41,7 +43,7 @@ public class ReiGridSynchronizer extends AbstractGridSynchronizer {
     }
 
     @Override
-    public int getXTexture() {
-        return twoWay ? 32 : 48;
+    public ResourceLocation getSprite() {
+        return twoWay ? NoopGridSynchronizer.ON_TWO_WAY : NoopGridSynchronizer.ON;
     }
 }
