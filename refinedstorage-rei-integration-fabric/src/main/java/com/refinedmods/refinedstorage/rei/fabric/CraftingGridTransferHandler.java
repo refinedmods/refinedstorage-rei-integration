@@ -1,6 +1,9 @@
 package com.refinedmods.refinedstorage.rei.fabric;
 
-import com.refinedmods.refinedstorage.api.resource.list.ResourceList;
+import com.refinedmods.refinedstorage.api.grid.view.GridView;
+import com.refinedmods.refinedstorage.api.resource.ResourceAmount;
+import com.refinedmods.refinedstorage.api.resource.list.MutableResourceList;
+import com.refinedmods.refinedstorage.common.api.RefinedStorageApi;
 import com.refinedmods.refinedstorage.common.grid.CraftingGridContainerMenu;
 import com.refinedmods.refinedstorage.common.support.resource.ItemResource;
 
@@ -8,11 +11,8 @@ import java.awt.Color;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import me.shedaniel.math.Rectangle;
 import me.shedaniel.rei.api.client.gui.widgets.Slot;
 import me.shedaniel.rei.api.client.gui.widgets.Widget;
-import me.shedaniel.rei.api.client.registry.transfer.TransferHandler;
 import me.shedaniel.rei.api.client.registry.transfer.TransferHandlerRenderer;
 import me.shedaniel.rei.api.common.entry.EntryIngredient;
 import me.shedaniel.rei.api.common.entry.EntryStack;
@@ -20,11 +20,28 @@ import me.shedaniel.rei.api.common.entry.type.VanillaEntryTypes;
 import me.shedaniel.rei.api.common.util.CollectionUtils;
 import me.shedaniel.rei.plugin.common.BuiltinPlugin;
 import me.shedaniel.rei.plugin.common.displays.crafting.DefaultCraftingDisplay;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.ItemStack;
 
-class CraftingGridTransferHandler implements TransferHandler {
+import static com.refinedmods.refinedstorage.rei.common.Common.MOD_ID;
+import static java.util.Comparator.comparingLong;
+
+class CraftingGridTransferHandler extends AbstractTransferHandler {
     private static final Color MISSING_COLOR = new Color(1.0f, 0.0f, 0.0f, 0.4f);
+    private static final Component MISSING = Component.translatable("gui.%s.transfer.missing".formatted(MOD_ID))
+        .withStyle(ChatFormatting.RED);
+    private static final Component CTRL_CLICK_TO_AUTOCRAFT = Component
+        .translatable("gui.%s.transfer.ctrl_click_to_autocraft".formatted(MOD_ID))
+        .withStyle(Style.EMPTY.withItalic(true).withColor(ChatFormatting.WHITE));
+    private static final Component MISSING_BUT_ALL_AUTOCRAFTABLE = createAutocraftableHint(
+        Component.translatable("gui.%s.transfer.missing_but_all_autocraftable".formatted(MOD_ID))
+    ).append("\n").append(CTRL_CLICK_TO_AUTOCRAFT);
+    private static final Component MISSING_BUT_AUTOCRAFTABLE = createAutocraftableHint(
+        Component.translatable("gui.%s.transfer.missing_but_some_autocraftable".formatted(MOD_ID))
+    ).append("\n").append(CTRL_CLICK_TO_AUTOCRAFT);
 
     @Override
     public Result handle(final Context context) {
@@ -34,20 +51,51 @@ class CraftingGridTransferHandler implements TransferHandler {
             return Result.createNotApplicable();
         }
         final List<EntryIngredient> ingredients = defaultCraftingDisplay.getOrganisedInputEntries(3, 3);
+        final MutableResourceList available = containerMenu.getAvailableListForRecipeTransfer();
+        final GridView view = containerMenu.getView();
+        final TransferInputs transferInputs = getTransferInputs(view, ingredients, available);
+        final TransferType type = transferInputs.getType();
         if (context.isActuallyCrafting()) {
-            doTransfer(ingredients, containerMenu);
-            return Result.createSuccessful().blocksFurtherHandling();
+            return doActuallyCrafting(context, containerMenu, type, transferInputs, ingredients);
         }
-        final ResourceList available = containerMenu.getAvailableListForRecipeTransfer();
-        final MissingIngredients missingIngredients = findMissingIngredients(ingredients, available);
-        if (missingIngredients.isEmpty()) {
+        if (type == TransferType.AVAILABLE) {
             return Result.createSuccessful().blocksFurtherHandling();
         }
         return Result.createSuccessful()
-            .color(MISSING_COLOR.getRGB())
-            .tooltipMissing(missingIngredients.getIngredients())
-            .renderer(createMissingItemsRenderer(missingIngredients))
+            .color(getColor(type))
+            .tooltip(getTooltip(type))
+            .renderer(createTransferInputsRenderer(transferInputs))
             .blocksFurtherHandling();
+    }
+
+    private Result doActuallyCrafting(final Context context, final CraftingGridContainerMenu containerMenu,
+                                      final TransferType type, final TransferInputs transferInputs,
+                                      final List<EntryIngredient> ingredients) {
+        if (type.canOpenAutocraftingPreview() && Screen.hasControlDown()) {
+            final List<ResourceAmount> craftingRequests = transferInputs.createCraftingRequests();
+            RefinedStorageApi.INSTANCE.openAutocraftingPreview(craftingRequests, context.getContainerScreen());
+            return Result.createSuccessful().blocksFurtherHandling(false);
+        } else {
+            doTransfer(ingredients, containerMenu);
+        }
+        return Result.createSuccessful().blocksFurtherHandling();
+    }
+
+    private static int getColor(final TransferType type) {
+        return switch (type) {
+            case MISSING -> MISSING_COLOR.getRGB();
+            case MISSING_BUT_ALL_AUTOCRAFTABLE, MISSING_BUT_SOME_AUTOCRAFTABLE -> AUTOCRAFTABLE_COLOR;
+            default -> 0;
+        };
+    }
+
+    private static Component getTooltip(final TransferType type) {
+        return switch (type) {
+            case MISSING -> MISSING;
+            case MISSING_BUT_ALL_AUTOCRAFTABLE -> MISSING_BUT_ALL_AUTOCRAFTABLE;
+            case MISSING_BUT_SOME_AUTOCRAFTABLE -> MISSING_BUT_AUTOCRAFTABLE;
+            default -> Component.empty();
+        };
     }
 
     private void doTransfer(final List<EntryIngredient> ingredients, final CraftingGridContainerMenu containerMenu) {
@@ -55,30 +103,41 @@ class CraftingGridTransferHandler implements TransferHandler {
         containerMenu.transferRecipe(inputs);
     }
 
-    private MissingIngredients findMissingIngredients(final List<EntryIngredient> ingredients,
-                                                      final ResourceList available) {
-        final MissingIngredients missingIngredients = new MissingIngredients();
+    private TransferInputs getTransferInputs(final GridView view,
+                                             final List<EntryIngredient> ingredients,
+                                             final MutableResourceList available) {
+        final TransferInputs transferInputs = new TransferInputs();
         for (int i = 0; i < ingredients.size(); ++i) {
             final EntryIngredient ingredient = ingredients.get(i);
             if (ingredient.isEmpty()) {
                 continue;
             }
-            if (!isAvailable(available, ingredient)) {
-                missingIngredients.addIngredient(ingredient, i);
-            }
+            final TransferInput transferInput = toTransferInput(view, available, ingredient);
+            transferInputs.addInput(i, transferInput);
         }
-        return missingIngredients;
+        return transferInputs;
     }
 
-    private boolean isAvailable(final ResourceList available, final EntryIngredient ingredient) {
+    private TransferInput toTransferInput(final GridView view,
+                                          final MutableResourceList available,
+                                          final EntryIngredient ingredient) {
         final List<ItemStack> possibilities = convertIngredientToItemStacks(ingredient);
         for (final ItemStack possibility : possibilities) {
             final ItemResource possibilityResource = ItemResource.ofItemStack(possibility);
             if (available.remove(possibilityResource, 1).isPresent()) {
-                return true;
+                return new TransferInput(ingredient, TransferInputType.AVAILABLE, null);
             }
         }
-        return false;
+        final List<ItemResource> autocraftingPossibilities = possibilities
+            .stream()
+            .map(ItemResource::ofItemStack)
+            .filter(view::isAutocraftable)
+            .sorted(comparingLong(view::getAmount))
+            .toList();
+        if (!autocraftingPossibilities.isEmpty()) {
+            return new TransferInput(ingredient, TransferInputType.AUTOCRAFTABLE, autocraftingPossibilities.getFirst());
+        }
+        return new TransferInput(ingredient, TransferInputType.MISSING, null);
     }
 
     private List<List<ItemResource>> getInputs(final List<EntryIngredient> ingredients) {
@@ -96,31 +155,22 @@ class CraftingGridTransferHandler implements TransferHandler {
         );
     }
 
-    private TransferHandlerRenderer createMissingItemsRenderer(final MissingIngredients missingIngredients) {
+    private TransferHandlerRenderer createTransferInputsRenderer(final TransferInputs transferInputs) {
         return (graphics, mouseX, mouseY, delta, widgets, bounds, display) -> {
             int index = 0;
             for (final Widget widget : widgets) {
-                if (widget instanceof Slot slot
-                    && slot.getNoticeMark() == Slot.INPUT
-                    && missingIngredients.isMissing(index++)) {
-                    renderMissingItemOverlay(graphics, slot);
+                if (widget instanceof Slot slot && slot.getNoticeMark() == Slot.INPUT) {
+                    final TransferInput input = transferInputs.getInput(index++);
+                    if (input == null) {
+                        continue;
+                    }
+                    if (input.type() == TransferInputType.MISSING) {
+                        renderSlotHighlight(graphics, slot, MISSING_COLOR.getRGB());
+                    } else if (input.type() == TransferInputType.AUTOCRAFTABLE) {
+                        renderSlotHighlight(graphics, slot, AUTOCRAFTABLE_COLOR);
+                    }
                 }
             }
         };
-    }
-
-    private void renderMissingItemOverlay(final GuiGraphics graphics, final Slot slot) {
-        final PoseStack poseStack = graphics.pose();
-        poseStack.pushPose();
-        poseStack.translate(0, 0, 400);
-        final Rectangle innerBounds = slot.getInnerBounds();
-        graphics.fill(
-            innerBounds.x,
-            innerBounds.y,
-            innerBounds.getMaxX(),
-            innerBounds.getMaxY(),
-            MISSING_COLOR.getRGB()
-        );
-        poseStack.popPose();
     }
 }
