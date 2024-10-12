@@ -23,7 +23,6 @@ repositories {
 refinedarchitect {
     modId = "refinedstorage_rei_integration"
     fabric()
-    compileWithProject(project(":refinedstorage-rei-integration-common"))
     publishing {
         maven = true
     }
@@ -38,7 +37,13 @@ val architecturyVersion: String by project
 val clothConfigVersion: String by project
 val reiVersion: String by project
 
+val commonJava by configurations.existing
+val commonResources by configurations.existing
+
 dependencies {
+    compileOnly(project(":refinedstorage-rei-integration-common"))
+    commonJava(project(path = ":refinedstorage-rei-integration-common", configuration = "commonJava"))
+    commonResources(project(path = ":refinedstorage-rei-integration-common", configuration = "commonResources"))
     modApi("com.refinedmods.refinedstorage:refinedstorage-fabric:${refinedstorageVersion}")
     modApi("dev.architectury:architectury-fabric:${architecturyVersion}")
     modApi("me.shedaniel.cloth:cloth-config-fabric:${clothConfigVersion}")
