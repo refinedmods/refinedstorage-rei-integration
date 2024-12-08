@@ -3,8 +3,8 @@ package com.refinedmods.refinedstorage.rei.forge;
 import com.refinedmods.refinedstorage.api.grid.view.GridView;
 import com.refinedmods.refinedstorage.api.resource.ResourceAmount;
 import com.refinedmods.refinedstorage.api.resource.list.MutableResourceList;
-import com.refinedmods.refinedstorage.common.api.RefinedStorageApi;
-import com.refinedmods.refinedstorage.common.grid.CraftingGridContainerMenu;
+import com.refinedmods.refinedstorage.common.api.RefinedStorageClientApi;
+import com.refinedmods.refinedstorage.common.grid.AbstractCraftingGridContainerMenu;
 import com.refinedmods.refinedstorage.common.support.resource.ItemResource;
 
 import java.awt.Color;
@@ -45,7 +45,7 @@ class CraftingGridTransferHandler extends AbstractTransferHandler {
 
     @Override
     public Result handle(final Context context) {
-        if (!(context.getMenu() instanceof CraftingGridContainerMenu containerMenu)
+        if (!(context.getMenu() instanceof AbstractCraftingGridContainerMenu containerMenu)
             || !context.getDisplay().getCategoryIdentifier().equals(BuiltinPlugin.CRAFTING)
             || !(context.getDisplay() instanceof DefaultCraftingDisplay<?> defaultCraftingDisplay)) {
             return Result.createNotApplicable();
@@ -68,12 +68,12 @@ class CraftingGridTransferHandler extends AbstractTransferHandler {
             .blocksFurtherHandling();
     }
 
-    private Result doActuallyCrafting(final Context context, final CraftingGridContainerMenu containerMenu,
+    private Result doActuallyCrafting(final Context context, final AbstractCraftingGridContainerMenu containerMenu,
                                       final TransferType type, final TransferInputs transferInputs,
                                       final List<EntryIngredient> ingredients) {
         if (type.canOpenAutocraftingPreview() && Screen.hasControlDown()) {
             final List<ResourceAmount> craftingRequests = transferInputs.createCraftingRequests();
-            RefinedStorageApi.INSTANCE.openAutocraftingPreview(craftingRequests, context.getContainerScreen());
+            RefinedStorageClientApi.INSTANCE.openAutocraftingPreview(craftingRequests, context.getContainerScreen());
             return Result.createSuccessful().blocksFurtherHandling(false);
         } else {
             doTransfer(ingredients, containerMenu);
@@ -98,7 +98,8 @@ class CraftingGridTransferHandler extends AbstractTransferHandler {
         };
     }
 
-    private void doTransfer(final List<EntryIngredient> ingredients, final CraftingGridContainerMenu containerMenu) {
+    private void doTransfer(final List<EntryIngredient> ingredients,
+                            final AbstractCraftingGridContainerMenu containerMenu) {
         final List<List<ItemResource>> inputs = getInputs(ingredients);
         containerMenu.transferRecipe(inputs);
     }
